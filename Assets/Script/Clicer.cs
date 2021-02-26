@@ -6,16 +6,7 @@ using UnityEngine;
 
 public class Clicer : MonoBehaviour
 {
-    private void OnMouseDown()
-    {
-        if (Input.GetMouseButton(1))
-        {
-            
-            transform.position = Vector3.MoveTowards(transform.position, Input.mousePosition,
-                Time.deltaTime * 100f);
-        }
-        
-    }
+    private float speed = 10;
 
     void Start()
     {
@@ -24,6 +15,31 @@ public class Clicer : MonoBehaviour
     
     void Update()
     {
-       
+        
+        
+        if (WayPointInfo.wayPoint == true)
+        {
+            transform.LookAt(WayPointInfo.wayPoint.transform);
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
+        
+        
+        
+        
     }
+    
+    private void OnTriggerEnter(Collider spawn)
+    {
+        
+        if (spawn.gameObject.CompareTag("Point"))
+        {
+            Destroy(spawn.gameObject);
+        }
+        if (spawn.gameObject.CompareTag("Cube"))
+        {
+            Destroy(spawn.gameObject);
+        }
+    }
+   
+   
 }
